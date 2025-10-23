@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="projects.postcardly.controller.SplashScreenController"
+      alignment="CENTER" spacing="30"
+      prefWidth="600" prefHeight="400"
+      style="-fx-background-color: #1a1a2e;">
+
+    <Label text="Postcardly"
+           style="-fx-font-size: 56px; -fx-font-weight: bold; -fx-text-fill: #eee;"/>
+
+    <Label text="Your Travel Memories, Beautifully Organized"
+           style="-fx-font-size: 18px; -fx-text-fill: #bbb;"/>
+
+    <ProgressIndicator fx:id="progressIndicator"
+                       prefWidth="80" prefHeight="80"
+                       style="-fx-progress-color: #3498DB;"/>
+
+    <Label fx:id="loadingLabel" text="Loading..."
+           style="-fx-font-size: 14px; -fx-text-fill: #999;"/>
+
+</VBox>

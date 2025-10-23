@@ -11,8 +11,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/projects/postcardly/MainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/projects/postcardly/SplashScreen.fxml"));
         Parent root = loader.load();
+
         Scene scene = new Scene(root);
         primaryStage.setTitle("Postcardly");
         primaryStage.setScene(scene);
