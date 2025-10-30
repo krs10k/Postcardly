@@ -21,7 +21,7 @@ public class User {
     private String lastLogin;
 
     /*  [Personal Information]
-    firstName / lastName - real name if you want it separate from username
+    firstName / lastName
     bio - short description about the user
     location - home city/country (maybe) */
     private String firstName;

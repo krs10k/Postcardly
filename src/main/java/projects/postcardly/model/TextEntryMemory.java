@@ -7,12 +7,13 @@ import java.time.LocalDate;
 public class TextEntryMemory extends Memory {
 
     /* Text entry:
-    A content attibute (The meat of the text entry)
+    A content attibute (The 'meat' of the text entry)
     A mood attribute (The users current feeling at the time of the text entry) */
 
     private final StringProperty content;
     private final StringProperty mood;
 
+    // Constructor
     public TextEntryMemory(String title, LocalDate date, String description, String content) {
         super(title, date, description);
         this.content = new SimpleStringProperty(content);
