@@ -44,11 +44,25 @@ public class MainMenuController {
         }
     }
 
-
     @FXML
     private void handleCreateTrip() {
-        // todo
-        System.out.println("Create Trip clicked");
+        try {
+            System.out.println("Loading Trip Create Menu...");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/projects/postcardly/CreateTrip.fxml"));
+            Parent createTripRoot = loader.load();
+
+            Stage stage = (Stage) createTripButton.getScene().getWindow();
+            Scene createTripScene = new Scene(createTripRoot);
+            stage.setScene(createTripScene);
+            stage.setTitle("Postcardly - Create your Trip");
+
+            System.out.println("Trip Create Menu Loaded successfully!");
+
+        } catch (Exception e) {
+            System.out.println("ERROR loading Trip Create Menu:");
+            e.printStackTrace();
+        }
     }
 
     @FXML

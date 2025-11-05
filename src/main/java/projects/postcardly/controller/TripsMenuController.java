@@ -13,7 +13,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import projects.postcardly.model.Trip;
 import projects.postcardly.model.User;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -33,7 +32,7 @@ public class TripsMenuController {
     public void initialize() {
         System.out.println("Trips Menu initialized!");
 
-        // Create sample user and trips for testing
+        // Sample user and trips for testing
         createSampleData();
 
         // Load trips
@@ -69,19 +68,9 @@ public class TripsMenuController {
                 LocalDate.of(2024, 3, 20), LocalDate.of(2024, 3, 27));
         trip3.setDescription("Relaxing on white sand beaches with crystal clear water");
 
-        Trip trip4 = new Trip("Mountain Retreat", "Swiss Alps, Switzerland",
-                LocalDate.of(2024, 12, 10), LocalDate.of(2024, 12, 17));
-        trip4.setDescription("Skiing and cozy mountain lodges");
-
-        Trip trip5 = new Trip("City Break", "New York, USA",
-                LocalDate.of(2024, 5, 1), LocalDate.of(2024, 5, 5));
-        trip5.setDescription("Broadway shows and iconic landmarks");
-
         currentUser.addTrip(trip1);
         currentUser.addTrip(trip2);
         currentUser.addTrip(trip3);
-        currentUser.addTrip(trip4);
-        currentUser.addTrip(trip5);
     }
 
     private void displayTripCards() {
@@ -93,7 +82,6 @@ public class TripsMenuController {
         }
     }
 
-    // headache. thx claude
     private VBox createTripCard(Trip trip) {
         // Main card container
         VBox card = new VBox(15);

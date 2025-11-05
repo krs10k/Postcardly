@@ -1,6 +1,7 @@
 module projects.postcardly {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
 
     opens projects.postcardly to javafx.fxml;

@@ -17,7 +17,7 @@
             <!-- Title and Back Button Row -->
             <HBox alignment="CENTER_LEFT" spacing="20">
                 <Button fx:id="backButton" text="← Back"
-                        style="-fx-background-color: transparent; -fx-text-fill: #ECF0F1; -fx-font-size: 16px; -fx-cursor: hand;"
+                        style="-fx-background-color: fd5e61; -fx-text-fill: #ECF0F1; -fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 25; -fx-cursor: hand;"
                         onAction="#handleBack"/>
 
                 <Region HBox.hgrow="ALWAYS"/>
