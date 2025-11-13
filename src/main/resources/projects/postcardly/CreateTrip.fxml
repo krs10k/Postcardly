@@ -7,35 +7,131 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="projects.postcardly.controller.CreateTripController"
-            prefWidth="800" prefHeight="600"
+            prefWidth="900" prefHeight="700"
             style="-fx-background-color: #f6f2ee;">
 
     <!-- Top Bar -->
     <top>
-        <VBox spacing="15" style="-fx-background-color: #f6f2ee; -fx-padding: 30 40 20 40;">
+        <HBox alignment="CENTER_LEFT" spacing="20"
+              style="-fx-background-color: #f6f2ee; -fx-padding: 25 40;">
 
-            <!-- Title and Back Button Row -->
-            <HBox alignment="CENTER_LEFT" spacing="20">
-                <Button fx:id="backButton" text="← Back"
-                        style="-fx-background-color: #fd5e61; -fx-text-fill: #ECF0F1; -fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 25; -fx-cursor: hand;"
-                        onAction="#handleBack"/>
+            <Button fx:id="backButton" text="← Back"
+                    style="-fx-background-color: fd5e61; -fx-text-fill: #ECF0F1; -fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 25; -fx-cursor: hand;"
+                    onAction="#handleBack"/>
 
-                <Region HBox.hgrow="ALWAYS"/>
-            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
 
-            <!-- Main Title -->
-            <VBox alignment="CENTER" spacing="10">
-                <Label text="Create your Trip"
-                       style="-fx-font-size: 42px; -fx-font-weight: bold; -fx-text-fill: #fd5e61;"/>
-            </VBox>
-        </VBox>
+            <Label text="Create New Trip"
+                   style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #fd5e61;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Spacer for symmetry -->
+            <Region prefWidth="80"/>
+        </HBox>
     </top>
 
-    <!-- Center - Trip Cards in ScrollPane -->
+    <!-- Center - Form -->
     <center>
-        <ScrollPane fx:id="tripsScrollPane"
-                    fitToWidth="true"
+        <ScrollPane fitToWidth="true"
                     style="-fx-background: #fd5e61; -fx-background-color: #f6f2ee; -fx-border-color: transparent;">
+
+            <VBox alignment="TOP_CENTER" spacing="30"
+                  style="-fx-padding: 40 100 60 100;">
+
+                <!-- Form Card -->
+                <VBox spacing="25"
+                      style="-fx-background-color: f6f2ee; -fx-background-radius: 20; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);"
+                      prefWidth="600">
+
+                    <!-- Trip Title -->
+                    <VBox spacing="8">
+                        <Label text="Trip Title *"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+                        <TextField fx:id="titleField"
+                                   promptText="e.g., Summer in Paris"
+                                   style="-fx-font-size: 15px; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #ddd; -fx-border-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Location -->
+                    <VBox spacing="8">
+                        <Label text="Location *"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+                        <TextField fx:id="locationField"
+                                   promptText="e.g., Paris, France"
+                                   style="-fx-font-size: 15px; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #ddd; -fx-border-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Date Range -->
+                    <HBox spacing="20">
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label text="Start Date *"
+                                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+                            <DatePicker fx:id="startDatePicker"
+                                        promptText="Select start date"
+                                        prefWidth="280"
+                                        style="-fx-font-size: 15px;"/>
+                        </VBox>
+
+                        <VBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Label text="End Date *"
+                                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+                            <DatePicker fx:id="endDatePicker"
+                                        promptText="Select end date"
+                                        prefWidth="280"
+                                        style="-fx-font-size: 15px;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Description -->
+                    <VBox spacing="8">
+                        <Label text="Description (Optional)"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+                        <TextArea fx:id="descriptionArea"
+                                  promptText="Share your thoughts about this trip..."
+                                  prefRowCount="4"
+                                  wrapText="true"
+                                  style="-fx-font-size: 15px; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #ddd; -fx-border-radius: 8;"/>
+                    </VBox>
+
+                    <!-- Cover Image (Future Feature) -->
+                    <VBox spacing="8">
+                        <Label text="Cover Image (Optional)"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <Button fx:id="selectImageButton" text="📷 Choose Image"
+                                    style="-fx-background-color: #e0e0e0; -fx-text-fill: #333333; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8; -fx-cursor: hand;"
+                                    onAction="#handleSelectImage"/>
+                            <Label fx:id="imageFileLabel" text="No image selected"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #999999;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Error Message -->
+                    <Label fx:id="errorLabel" text=""
+                           style="-fx-text-fill: #E74C3C; -fx-font-size: 13px;"
+                           visible="false"/>
+
+                    <!-- Action Buttons -->
+                    <HBox spacing="15" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                        <Button fx:id="cancelButton" text="Cancel"
+                                prefWidth="150" prefHeight="45"
+                                style="-fx-background-color: #e0e0e0; -fx-text-fill: #333333; -fx-font-size: 16px; -fx-background-radius: 25; -fx-cursor: hand;"
+                                onAction="#handleCancel"/>
+
+                        <Button fx:id="createButton" text="Create Trip"
+                                prefWidth="200" prefHeight="45"
+                                style="-fx-background-color: #fd5e61; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 25; -fx-cursor: hand;"
+                                onAction="#handleCreateTrip"/>
+                    </HBox>
+
+                </VBox>
+
+                <!-- Helper Text -->
+                <Label text="* Required fields"
+                       style="-fx-font-size: 12px; -fx-text-fill: #999999;"/>
+
+            </VBox>
         </ScrollPane>
     </center>
 

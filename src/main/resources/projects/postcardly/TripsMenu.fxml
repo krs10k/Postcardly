@@ -36,7 +36,7 @@
                 <TextField fx:id="searchField"
                            promptText="Search your adventures..."
                            prefWidth="400"
-                           style="-fx-font-size: 15px; -fx-padding: 12; -fx-background-radius: 25; -fx-background-color: #34495E; -fx-text-fill: white; -fx-prompt-text-fill: #95A5A6;"/>
+                           style="-fx-font-size: 15px; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #ddd; -fx-border-radius: 8;"/>
 
                 <Button fx:id="createTripButton" text="+ Create New Trip"
                         style="-fx-background-color: #fd5e61; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 25; -fx-cursor: hand;"

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import projects.postcardly.PostcardlyApp;
 import projects.postcardly.model.Trip;
 import projects.postcardly.model.User;
 import java.time.LocalDate;
@@ -30,47 +31,24 @@ public class TripsMenuController {
 
     @FXML
     public void initialize() {
-        System.out.println("Trips Menu initialized!");
+        // Get the current user from the app
+        User user = PostcardlyApp.getCurrentUser();
 
-        // Sample user and trips for testing
-        createSampleData();
+        if (user == null) {
+            System.err.println("ERROR: No current user set!");
+            return;
+        }
 
-        // Load trips
+        this.currentUser = user;
+
+        // Use the user's actual trips
         tripList = FXCollections.observableArrayList(currentUser.getTrips());
 
-        // Display trip cards
         displayTripCards();
-
-        // Update trip count
         updateTripCount();
-
-        // Setup search functionality
         searchField.textProperty().addListener((obs, oldText, newText) -> filterAndDisplayTrips(newText));
-
         tripsScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         tripsScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-    }
-
-    private void createSampleData() {
-        // sample user data with some trips
-        currentUser = new User("John", "Doe", "johndoe", "john@example.com", "Travel enthusiast");
-
-        // Add sample trips with varied data
-        Trip trip1 = new Trip("Paris Adventure", "Paris, France",
-                LocalDate.of(2024, 6, 15), LocalDate.of(2024, 6, 22));
-        trip1.setDescription("Explored the Eiffel Tower, Louvre, and charming cafes");
-
-        Trip trip2 = new Trip("Tokyo Experience", "Tokyo, Japan",
-                LocalDate.of(2024, 9, 1), LocalDate.of(2024, 9, 10));
-        trip2.setDescription("Amazing food, culture, and technology everywhere");
-
-        Trip trip3 = new Trip("Beach Getaway", "Cancun, Mexico",
-                LocalDate.of(2024, 3, 20), LocalDate.of(2024, 3, 27));
-        trip3.setDescription("Relaxing on white sand beaches with crystal clear water");
-
-        currentUser.addTrip(trip1);
-        currentUser.addTrip(trip2);
-        currentUser.addTrip(trip3);
     }
 
     private void displayTripCards() {
