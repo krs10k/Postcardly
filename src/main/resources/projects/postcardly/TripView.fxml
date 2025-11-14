@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="projects.postcardly.controller.TripViewController"
+            prefWidth="900" prefHeight="700"
+            style="-fx-background-color: #f6f2ee;">
+
+    <!-- Top: Trip Header -->
+    <top>
+        <VBox spacing="15" style="-fx-background-color: #f6f2ee; -fx-padding: 25 40;">
+
+            <!-- Back Button Row -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Button fx:id="backButton" text="← Back to Trips"
+                        style="-fx-background-color: #fd5e61; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 25; -fx-cursor: hand;"
+                        onAction="#handleBack"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+
+            </HBox>
+
+            <!-- Trip Title and Info -->
+            <VBox spacing="8" alignment="CENTER">
+                <Label fx:id="tripTitleLabel" text="Trip Title"
+                       style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #fd5e61;"/>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Label fx:id="tripLocationLabel" text="📍 Location"
+                           style="-fx-font-size: 16px; -fx-text-fill: #666666;"/>
+                    <Label text="|" style="-fx-text-fill: #cccccc;"/>
+                    <Label fx:id="tripDatesLabel" text="Dates"
+                           style="-fx-font-size: 16px; -fx-text-fill: #666666;"/>
+                </HBox>
+
+                <Label fx:id="tripDescriptionLabel" text="Description"
+                       wrapText="true" maxWidth="600"
+                       style="-fx-font-size: 14px; -fx-text-fill: #999999; -fx-text-alignment: center;"
+                       alignment="CENTER"/>
+            </VBox>
+        </VBox>
+    </top>
+
+    <!-- Center: Memory Slideshow -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background: #f6f2ee; -fx-background-color: #f6f2ee;">
+            <StackPane style="-fx-padding: 20 40;">
+
+                <!-- No Memories State -->
+                <VBox fx:id="noMemoriesPane" alignment="CENTER" spacing="20" visible="true">
+                    <Label text="📸" style="-fx-font-size: 80px;"/>
+                    <Label text="No memories yet"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #666666;"/>
+                    <Label text="Start capturing your moments!"
+                           style="-fx-font-size: 16px; -fx-text-fill: #999999;"/>
+                    <Button text="+ Add First Memory"
+                            style="-fx-background-color: #fd5e61; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 25; -fx-cursor: hand;"
+                            onAction="#handleAddMemory"/>
+                </VBox>
+
+                <!-- Slideshow State -->
+                <VBox fx:id="slideshowPane" alignment="CENTER" spacing="15" visible="false">
+
+                    <!-- Image Display Area -->
+                    <StackPane style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5); -fx-padding: 15;">
+                        <VBox alignment="CENTER" spacing="0">
+
+                            <!-- Image with Navigation -->
+                            <StackPane prefWidth="580" prefHeight="380">
+
+                                <!-- Gray background that surrounds the image -->
+                                <VBox alignment="CENTER"
+                                      style="-fx-background-color: #e8e8e8; -fx-background-radius: 10;"
+                                      prefWidth="580" prefHeight="380">
+
+                                    <!-- Image View -->
+                                    <ImageView fx:id="memoryImageView"
+                                               fitWidth="580" fitHeight="380"
+                                               preserveRatio="true"/>
+
+                                    <!-- No Image Placeholder -->
+                                    <VBox fx:id="noImagePlaceholder" alignment="CENTER" spacing="10"
+                                          visible="false">
+                                        <Label text="🖼️" style="-fx-font-size: 60px;"/>
+                                        <Label text="Image not found" style="-fx-font-size: 16px; -fx-text-fill: #999999;"/>
+                                    </VBox>
+                                </VBox>
+
+                                <!-- Left Arrow -->
+                                <Button fx:id="previousButton" text="◄"
+                                        style="-fx-background-color: rgba(255,255,255,0.9); -fx-text-fill: #333333; -fx-font-size: 24px; -fx-background-radius: 50; -fx-min-width: 50; -fx-min-height: 50; -fx-cursor: hand;"
+                                        onAction="#handlePrevious"
+                                        StackPane.alignment="CENTER_LEFT">
+                                    <StackPane.margin>
+                                        <Insets left="10"/>
+                                    </StackPane.margin>
+                                </Button>
+
+                                <!-- Right Arrow -->
+                                <Button fx:id="nextButton" text="►"
+                                        style="-fx-background-color: rgba(255,255,255,0.9); -fx-text-fill: #333333; -fx-font-size: 24px; -fx-background-radius: 50; -fx-min-width: 50; -fx-min-height: 50; -fx-cursor: hand;"
+                                        onAction="#handleNext"
+                                        StackPane.alignment="CENTER_RIGHT">
+                                    <StackPane.margin>
+                                        <Insets right="10"/>
+                                    </StackPane.margin>
+                                </Button>
+                            </StackPane>
+
+                            <!-- Memory Details -->
+                            <VBox alignment="CENTER" spacing="6" style="-fx-padding: 15;">
+                                <Label fx:id="memoryTitleLabel" text="Memory Title"
+                                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+                                <Label fx:id="memoryDateLabel" text="Date"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #999999;"/>
+
+                                <Label fx:id="memoryDescriptionLabel" text="Description"
+                                       wrapText="true" maxWidth="550"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #666666; -fx-text-alignment: center;"/>
+                            </VBox>
+                        </VBox>
+                    </StackPane>
+
+                    <!-- Memory Counter -->
+                    <Label fx:id="memoryCounterLabel" text="1 / 1"
+                           style="-fx-font-size: 14px; -fx-text-fill: #999999;"/>
+
+                </VBox>
+
+            </StackPane>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom: Action Bar -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="15" style="-fx-background-color: #f6f2ee; -fx-padding: 20 40;">
+            <Button fx:id="addMemoryButton" text="+ Add Memory"
+                    style="-fx-background-color: #fd5e61; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 25; -fx-cursor: hand;"
+                    onAction="#handleAddMemory"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

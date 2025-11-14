@@ -11,7 +11,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
-
+import projects.postcardly.model.Memory;
+import projects.postcardly.model.PictureMemory;
+import projects.postcardly.model.TextEntryMemory;
+import com.google.gson.JsonArray;
 
 /**
  * Custom Gson adapters to serialize/deserialize JavaFX Properties
@@ -70,7 +73,7 @@ public class PropertyAdapters {
         }
     }
 
-    // Improved Adapter for ObjectProperty that handles LocalDate properly
+    // Adapter for ObjectProperty that handles LocalDate properly
     public static class ObjectPropertyAdapter implements JsonSerializer<ObjectProperty<?>>, JsonDeserializer<ObjectProperty<?>> {
         @Override
         public JsonElement serialize(ObjectProperty<?> src, Type typeOfSrc, JsonSerializationContext context) {
@@ -102,6 +105,7 @@ public class PropertyAdapters {
         }
     }
 
+    // Adapter for TripList<Trip>
     public static class TripListAdapter implements JsonSerializer<ObservableList<Trip>>, JsonDeserializer<ObservableList<Trip>> {
         @Override
         public JsonElement serialize(ObservableList<Trip> src, Type typeOfSrc, JsonSerializationContext context) {
@@ -122,19 +126,36 @@ public class PropertyAdapters {
     }
 
     // Adapter for ObservableList<Memory>
-    public static class MemoryListAdapter implements JsonSerializer<ObservableList<projects.postcardly.model.Memory>>, JsonDeserializer<ObservableList<projects.postcardly.model.Memory>> {
+    public static class MemoryListAdapter implements JsonSerializer<ObservableList<Memory>>, JsonDeserializer<ObservableList<Memory>> {
         @Override
-        public JsonElement serialize(ObservableList<projects.postcardly.model.Memory> src, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(ObservableList<Memory> src, Type typeOfSrc, JsonSerializationContext context) {
             if (src == null) {
                 return JsonNull.INSTANCE;
             }
-            return context.serialize(new ArrayList<>(src));
+            JsonArray array = new JsonArray();
+            for (Memory memory : src) {
+                // Use the MemoryAdapter to serialize each memory
+                array.add(new MemoryAdapter().serialize(memory, Memory.class, context));
+            }
+            return array;
         }
 
         @Override
-        public ObservableList<projects.postcardly.model.Memory> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
-            List<projects.postcardly.model.Memory> list = context.deserialize(json, new com.google.gson.reflect.TypeToken<ArrayList<projects.postcardly.model.Memory>>(){}.getType());
-            return FXCollections.observableArrayList(list);
+        public ObservableList<Memory> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
+            if (json.isJsonNull()) {
+                return FXCollections.observableArrayList();
+            }
+
+            JsonArray array = json.getAsJsonArray();
+            ObservableList<Memory> list = FXCollections.observableArrayList();
+
+            for (JsonElement element : array) {
+                // Use the MemoryAdapter to deserialize each memory
+                Memory memory = new MemoryAdapter().deserialize(element, Memory.class, context);
+                list.add(memory);
+            }
+
+            return list;
         }
     }
 
@@ -150,6 +171,38 @@ public class PropertyAdapters {
         @Override
         public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
             return LocalDate.parse(json.getAsString(), formatter);
+        }
+    }
+
+    // Simple adapter for Memory polymorphism
+    public static class MemoryAdapter implements JsonSerializer<Memory>, JsonDeserializer<Memory> {
+
+        @Override
+        public JsonElement serialize(Memory src, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject result = new JsonObject();
+            result.add("memoryType", new JsonPrimitive(src.getMemoryType()));
+            result.add("properties", context.serialize(src, src.getClass()));
+            return result;
+        }
+
+        @Override
+        public Memory deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+            String type = jsonObject.get("memoryType").getAsString();
+            JsonElement element = jsonObject.get("properties");
+
+            try {
+                if ("Picture".equals(type)) {
+                    return context.deserialize(element, PictureMemory.class);
+                } else if ("Journal Entry".equals(type) || "TextEntry".equals(type)) {
+                    return context.deserialize(element, TextEntryMemory.class);
+                } else {
+                    throw new JsonParseException("Unknown memory type: " + type);
+                }
+            } catch (Exception e) {
+                throw new JsonParseException("Failed to deserialize memory: " + e.getMessage());
+            }
         }
     }
 

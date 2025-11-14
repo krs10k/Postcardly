@@ -37,8 +37,10 @@ public class DataManager {
             .registerTypeAdapter(SimpleObjectProperty.class, new PropertyAdapters.ObjectPropertyAdapter())
             .registerTypeAdapter(new TypeToken<ObservableList<Trip>>(){}.getType(), new PropertyAdapters.TripListAdapter())
             .registerTypeAdapter(new TypeToken<ObservableList<Memory>>(){}.getType(), new PropertyAdapters.MemoryListAdapter())
-            .registerTypeAdapter(LocalDate.class, new PropertyAdapters.LocalDateAdapter())  // ← ADD THIS LINE
+            .registerTypeAdapter(LocalDate.class, new PropertyAdapters.LocalDateAdapter())
+            .registerTypeAdapter(Memory.class, new PropertyAdapters.MemoryAdapter())  // ← ADD THIS
             .create();
+
     /**
      * Save user data to disk as JSON
      * @param user The user to save

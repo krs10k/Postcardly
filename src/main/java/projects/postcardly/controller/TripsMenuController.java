@@ -14,8 +14,10 @@ import javafx.stage.Stage;
 import projects.postcardly.PostcardlyApp;
 import projects.postcardly.model.Trip;
 import projects.postcardly.model.User;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
 
 public class TripsMenuController {
 
@@ -87,16 +89,34 @@ public class TripsMenuController {
                         "-fx-cursor: hand;"
         ));
 
-        // Image placeholder (for future: will show trip cover image)
+        // Image display
         StackPane imagePlaceholder = new StackPane();
         imagePlaceholder.setPrefSize(240, 140);
-        imagePlaceholder.setStyle(
-                "-fx-background-color: linear-gradient(to bottom right, #3498DB, #2ECC71); " +
-                        "-fx-background-radius: 10;"
-        );
-        Label imageLabel = new Label("📸");
-        imageLabel.setStyle("-fx-font-size: 40px;");
-        imagePlaceholder.getChildren().add(imageLabel);
+        imagePlaceholder.setStyle("-fx-background-radius: 10;");
+
+        if (trip.getCoverImagePath() != null && !trip.getCoverImagePath().isEmpty()) {
+            try {
+                // Load and display actual image
+                File imageFile = new File(trip.getCoverImagePath());
+                if (imageFile.exists()) {
+                    Image image = new Image(imageFile.toURI().toString());
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(240);
+                    imageView.setFitHeight(140);
+                    imageView.setPreserveRatio(false); // Fill the space
+                    imagePlaceholder.getChildren().add(imageView);
+                } else {
+                    // File doesn't exist, show placeholder
+                    showPlaceholder(imagePlaceholder);
+                }
+            } catch (Exception e) {
+                // Error loading image, show placeholder
+                showPlaceholder(imagePlaceholder);
+            }
+        } else {
+            // No image set, show placeholder
+            showPlaceholder(imagePlaceholder);
+        }
 
         // Trip title
         Label titleLabel = new Label(trip.getTitle());
@@ -150,6 +170,16 @@ public class TripsMenuController {
         return card;
     }
 
+    private void showPlaceholder(StackPane container) {
+        container.setStyle(
+                "-fx-background-color: linear-gradient(to bottom right, #fd5e61, #ffa07a); " +
+                        "-fx-background-radius: 10;"
+        );
+        Label imageLabel = new Label("📸");
+        imageLabel.setStyle("-fx-font-size: 40px;");
+        container.getChildren().add(imageLabel);
+    }
+
     private void filterAndDisplayTrips(String searchText) {
         if (searchText == null || searchText.isEmpty()) {
             tripList.setAll(currentUser.getTrips());
@@ -175,13 +205,39 @@ public class TripsMenuController {
 
     @FXML
     private void handleCreateTrip() {
-        System.out.println("Create Trip clicked");
-        showAlert("Create Trip", "Create trip functionality coming soon!");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/projects/postcardly/CreateTrip.fxml"));
+            Parent createTripRoot = loader.load();
+
+            Stage stage = (Stage) createTripButton.getScene().getWindow();
+            Scene createTripScene = new Scene(createTripRoot);
+            stage.setScene(createTripScene);
+            stage.setTitle("Postcardly - Create New Trip");
+
+        } catch (Exception e) {
+            System.err.println("Error loading Create Trip screen:");
+            e.printStackTrace();
+        }
     }
 
     private void handleViewTrip(Trip trip) {
-        System.out.println("Viewing trip: " + trip.getTitle());
-        showAlert("View Trip", "Viewing: " + trip.getTitle() + "\n\n" + trip.getDescription());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/projects/postcardly/TripView.fxml"));
+            Parent tripViewRoot = loader.load();
+
+            // Get controller and pass the trip
+            TripViewController controller = loader.getController();
+            controller.setTrip(trip);
+
+            Stage stage = (Stage) tripCardsPane.getScene().getWindow();
+            Scene tripViewScene = new Scene(tripViewRoot);
+            stage.setScene(tripViewScene);
+            stage.setTitle("Postcardly - " + trip.getTitle());
+
+        } catch (Exception e) {
+            System.err.println("Error loading trip view:");
+            e.printStackTrace();
+        }
     }
 
     @FXML
