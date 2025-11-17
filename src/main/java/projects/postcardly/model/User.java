@@ -11,17 +11,17 @@ public class User {
     /*  [Essential Properties]
     username - unique identifier, display name
     email - for identification/contact (even if not sending emails)
-    profilePicture - file path or image reference
+    profilePicturePath - file path or image reference
     dateCreated - when the account was created
     lastLogin - timestamp of last app use */
     private final StringProperty username;
     private final StringProperty email;
-    private File profilePicture;
+    private String profilePicturePath;
     private final String dateCreated;
     private String lastLogin;
 
     /*  [Personal Information]
-    firstName / lastName - real name if you want it separate from username
+    firstName / lastName
     bio - short description about the user
     location - home city/country (maybe) */
     private String firstName;
@@ -50,7 +50,7 @@ public class User {
         this.lastName = lastName;
         this.dateCreated = LocalDate.now().toString();
         this.lastLogin = LocalDate.now().toString();
-        this.profilePicture = null;
+        this.profilePicturePath = null;
 
         // Initialize properties
         this.username = new SimpleStringProperty(username);
@@ -85,11 +85,11 @@ public class User {
         this.email.set(email);
     }
 
-    public File getProfilePicture() {
-        return profilePicture;
+    public String getprofilePicturePath() {
+        return profilePicturePath;
     }
-    public void setProfilePicture(File profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setprofilePicturePath(String profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
     }
 
     public String getDateCreated() {
@@ -186,6 +186,12 @@ public class User {
         this.autoSave.set(autoSave);
     }
 
+    public File getprofilePicturePathFile() {
+        if (profilePicturePath != null && !profilePicturePath.isEmpty()) {
+            return new File(profilePicturePath);
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return username.get() + " (" + firstName + " " + lastName + ")";

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="projects.postcardly.controller.TripsMenuController"
+            prefWidth="800" prefHeight="600"
+            style="-fx-background-color: #f6f2ee;">
+
+    <!-- Top Bar -->
+    <top>
+        <VBox spacing="15" style="-fx-background-color: #f6f2ee; -fx-padding: 30 40 20 40;">
+
+            <!-- Title and Back Button Row -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Button fx:id="backButton" text="← Back"
+                        style="-fx-background-color: fd5e61; -fx-text-fill: #ECF0F1; -fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 25; -fx-cursor: hand;"
+                        onAction="#handleBack"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- Main Title -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="My Trips"
+                       style="-fx-font-size: 42px; -fx-font-weight: bold; -fx-text-fill: #fd5e61;"/>
+                <Label fx:id="tripCountLabel" text="0 adventures captured"
+                       style="-fx-font-size: 16px; -fx-text-fill: #BDC3C7;"/>
+            </VBox>
+
+            <!-- Search and Create Button Row -->
+            <HBox alignment="CENTER" spacing="20">
+                <TextField fx:id="searchField"
+                           promptText="Search your adventures..."
+                           prefWidth="400"
+                           style="-fx-font-size: 15px; -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #ddd; -fx-border-radius: 8;"/>
+
+                <Button fx:id="createTripButton" text="+ Create New Trip"
+                        style="-fx-background-color: #fd5e61; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 25; -fx-cursor: hand;"
+                        onAction="#handleCreateTrip"/>
+            </HBox>
+
+        </VBox>
+    </top>
+
+    <!-- Center - Trip Cards in ScrollPane -->
+    <center>
+        <ScrollPane fx:id="tripsScrollPane"
+                    fitToWidth="true"
+                    style="-fx-background: #fd5e61; -fx-background-color: #f6f2ee; -fx-border-color: transparent;">
+
+            <VBox fx:id="tripsContainer"
+                  spacing="0"
+                  alignment="TOP_CENTER"
+                  style="-fx-padding: 20 40 40 40;">
+
+                <!-- Trip cards will be added here dynamically -->
+                <FlowPane fx:id="tripCardsPane"
+                          hgap="25" vgap="25"
+                          alignment="CENTER"
+                          prefWrapLength="900"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
