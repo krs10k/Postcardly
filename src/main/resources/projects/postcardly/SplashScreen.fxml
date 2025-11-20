@@ -3,7 +3,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="rootContainer" prefHeight="600" prefWidth="800" style="-fx-background-color: #1a1a2e;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.postcardly.controller.SplashScreenController">
+<AnchorPane fx:id="rootContainer" prefHeight="600" prefWidth="800" style="-fx-background-color: #1a1a2e;" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="projects.postcardly.controller.SplashScreenController">
 
     <ImageView fitHeight="732.0" fitWidth="840.0" layoutX="-36.0" layoutY="-52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-80.0" AnchorPane.leftAnchor="-36.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="-52.0">
         <image>

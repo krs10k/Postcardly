@@ -11,12 +11,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
 import projects.postcardly.PostcardlyApp;
 import projects.postcardly.model.Trip;
 import projects.postcardly.model.User;
+import projects.postcardly.service.DataManager;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.io.File;
 
 public class TripsMenuController {
@@ -89,33 +92,41 @@ public class TripsMenuController {
                         "-fx-cursor: hand;"
         ));
 
-        // Image display
+        // image placeholder
         StackPane imagePlaceholder = new StackPane();
         imagePlaceholder.setPrefSize(240, 140);
         imagePlaceholder.setStyle("-fx-background-radius: 10;");
 
         if (trip.getCoverImagePath() != null && !trip.getCoverImagePath().isEmpty()) {
             try {
-                // Load and display actual image
-                File imageFile = new File(trip.getCoverImagePath());
-                if (imageFile.exists()) {
-                    Image image = new Image(imageFile.toURI().toString());
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(240);
-                    imageView.setFitHeight(140);
-                    imageView.setPreserveRatio(false); // Fill the space
-                    imagePlaceholder.getChildren().add(imageView);
-                } else {
-                    // File doesn't exist, show placeholder
-                    showPlaceholder(imagePlaceholder);
-                }
+                Image image = new Image(new File(trip.getCoverImagePath()).toURI().toString());
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(240);
+                imageView.setFitHeight(140);
+                imageView.setPreserveRatio(true);
+
+
+                imagePlaceholder.getChildren().add(imageView);
             } catch (Exception e) {
-                // Error loading image, show placeholder
-                showPlaceholder(imagePlaceholder);
+                System.err.println("Failed to load trip image: " + e.getMessage());
+                // fallback to placeholder label
+                Label imageLabel = new Label("📸");
+                imageLabel.setStyle("-fx-font-size: 40px;");
+                imagePlaceholder.getChildren().add(imageLabel);
+                imagePlaceholder.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom right, #3498DB, #2ECC71); " +
+                                "-fx-background-radius: 10;"
+                );
             }
         } else {
-            // No image set, show placeholder
-            showPlaceholder(imagePlaceholder);
+            // no placeholder
+            Label imageLabel = new Label(":(");
+            imageLabel.setStyle("-fx-font-size: 40px;");
+            imagePlaceholder.getChildren().add(imageLabel);
+            imagePlaceholder.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom right, #3498DB, #2ECC71); " +
+                            "-fx-background-radius: 10;"
+            );
         }
 
         // Trip title
@@ -154,6 +165,37 @@ public class TripsMenuController {
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
 
+        // Delete button
+        Button deleteButton = new Button("Delete Trip");
+        deleteButton.setStyle(
+                "-fx-background-color: #E74C3C; " +
+                        "-fx-text-fill: white; " +
+                        "-fx-font-weight: bold; " +
+                        "-fx-background-radius: 10;"
+        );
+        deleteButton.setPrefWidth(240);
+
+        deleteButton.setOnAction(e -> {
+            // Prevent the click from triggering card click
+            e.consume();
+
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Delete Trip");
+            confirm.setHeaderText("Are you sure you want to delete \"" + trip.getTitle() + "\"?");
+            confirm.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // Remove from user
+                    currentUser.getTrips().remove(trip);
+                    // Save changes
+                    DataManager.saveUser(currentUser);
+                    // Update list and UI
+                    tripList.remove(trip);
+                    displayTripCards();
+                    updateTripCount();
+                }
+            });
+        });
+
         // Add click handler to view trip
         card.setOnMouseClicked(e -> handleViewTrip(trip));
 
@@ -164,20 +206,11 @@ public class TripsMenuController {
                 locationBox,
                 dateLabel,
                 spacer,
-                memoryBox
+                memoryBox,
+                deleteButton
         );
 
         return card;
-    }
-
-    private void showPlaceholder(StackPane container) {
-        container.setStyle(
-                "-fx-background-color: linear-gradient(to bottom right, #fd5e61, #ffa07a); " +
-                        "-fx-background-radius: 10;"
-        );
-        Label imageLabel = new Label("📸");
-        imageLabel.setStyle("-fx-font-size: 40px;");
-        container.getChildren().add(imageLabel);
     }
 
     private void filterAndDisplayTrips(String searchText) {
@@ -256,6 +289,13 @@ public class TripsMenuController {
         }
     }
 
+    public void setUser(User user) {
+        this.currentUser = user;
+        tripList.setAll(user.getTrips());
+        displayTripCards();
+        updateTripCount();
+    }
+
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -263,11 +303,14 @@ public class TripsMenuController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-    public void setUser(User user) {
-        this.currentUser = user;
-        tripList.setAll(user.getTrips());
-        displayTripCards();
-        updateTripCount();
+    private void showPlaceholder(StackPane container) {
+        container.setStyle(
+                "-fx-background-color: linear-gradient(to bottom right, #fd5e61, #ffa07a); " +
+                        "-fx-background-radius: 10;"
+        );
+        Label imageLabel = new Label("📸");
+        imageLabel.setStyle("-fx-font-size: 40px;");
+        container.getChildren().add(imageLabel);
     }
+
 }

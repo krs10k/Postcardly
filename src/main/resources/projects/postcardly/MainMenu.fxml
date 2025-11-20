@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="20"
+<VBox alignment="CENTER" prefHeight="800" prefWidth="1000" spacing="20"
       style="-fx-background-color: #f6f2ee;"
       xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"

@@ -26,18 +26,9 @@ public class PostcardlyApp extends Application {
         primaryStage.show();
     }
 
-    // === PUBLIC API FOR OTHER CLASSES ===
-
-    /**
-     * Get the primary application window/stage
-     */
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     /**
      * Get the currently logged-in user
-     * @return Current user, or null if no user is set
+     * @return current user, or null if no user is set
      */
     public static User getCurrentUser() {
         return currentUser;

@@ -1,0 +1,58 @@
+{
+  "username": "testuser",
+  "email": "test@email.com",
+  "dateCreated": "2025-11-20",
+  "lastLogin": "2025-11-20",
+  "firstName": "Test",
+  "lastName": "User",
+  "bio": "Testing the app!",
+  "trips": [
+    {
+      "title": "Summer in California!",
+      "location": "SATX",
+      "startDate": "2025-11-20",
+      "endDate": "2025-11-27",
+      "description": "It was nice.",
+      "coverImagePath": "/Users/karstenkarlsgodt/Desktop/Postcardly_logo.png",
+      "memories": [
+        {
+          "memoryType": "Picture",
+          "properties": {
+            "imagePath": "/Users/karstenkarlsgodt/Desktop/Postcardly_logo.png",
+            "caption": "",
+            "title": "Memory 1",
+            "date": "2025-11-20",
+            "description": "A memorable moment from Summer in California!",
+            "location": ""
+          }
+        },
+        {
+          "memoryType": "Picture",
+          "properties": {
+            "imagePath": "/Users/karstenkarlsgodt/Desktop/Postcardly_logo.png",
+            "caption": "",
+            "title": "Memory 2",
+            "date": "2025-11-20",
+            "description": "A memorable moment from Summer in California!",
+            "location": ""
+          }
+        },
+        {
+          "memoryType": "Picture",
+          "properties": {
+            "imagePath": "/Users/karstenkarlsgodt/Desktop/Postcardly_logo.png",
+            "caption": "",
+            "title": "Memory 3",
+            "date": "2025-11-20",
+            "description": "A memorable moment from Summer in California!",
+            "location": ""
+          }
+        }
+      ],
+      "favorite": false
+    }
+  ],
+  "theme": "default",
+  "defaultView": "default",
+  "autoSave": false
+}

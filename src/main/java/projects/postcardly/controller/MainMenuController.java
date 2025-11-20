@@ -15,8 +15,6 @@ public class MainMenuController {
     private Button createTripButton;
     @FXML
     private Button settingsButton;
-    @FXML
-    private Button exitButton;
 
     @FXML
     public void initialize() {
@@ -67,8 +65,23 @@ public class MainMenuController {
 
     @FXML
     private void handleSettings() {
-        // todo
-        System.out.println("Settings clicked");
+        try {
+            System.out.println("Loading Settings Menu...");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/projects/postcardly/SettingsScreen.fxml"));
+            Parent settingsRoot = loader.load();
+
+            Stage stage = (Stage) settingsButton.getScene().getWindow();
+            Scene settingsScene = new Scene(settingsRoot);
+            stage.setScene(settingsScene);
+            stage.setTitle("Postcardly - Settings");
+
+            System.out.println("Settings Menu loaded successfully!");
+
+        } catch (Exception e) {
+            System.out.println("ERROR loading Settings Menu:");
+            e.printStackTrace();
+        }
     }
 
     @FXML

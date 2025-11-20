@@ -26,8 +26,6 @@ public class CreateTripController {
     @FXML private Label imageFileLabel;
     @FXML private Label errorLabel;
     @FXML private Button backButton;
-    @FXML private Button cancelButton;
-    @FXML private Button createButton;
 
     private User currentUser;
     private File selectedImageFile;
@@ -202,7 +200,7 @@ public class CreateTripController {
 
     @FXML
     private void handleBack() {
-        handleCancel(); // Use same logic as cancel
+        handleCancel(); // same logic as cancel
     }
 
     private void navigateBack() {
@@ -239,7 +237,7 @@ public class CreateTripController {
         }
     }
 
-    // Method to receive user from previous screen
+    // receives user from previous screen
     public void setUser(User user) {
         this.currentUser = user;
     }

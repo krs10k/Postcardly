@@ -2,6 +2,8 @@ package projects.postcardly.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import projects.postcardly.model.Memory;
 import projects.postcardly.model.User;
 
@@ -14,12 +16,11 @@ import java.time.LocalDate;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import projects.postcardly.model.Trip;
-import com.google.gson.reflect.TypeToken;
 
 public class DataManager {
 
     // File location where user data will be saved
-    private static final String DATA_DIRECTORY = System.getProperty("user.home") + "/Postcardly";
+    private static final String DATA_DIRECTORY = "./data";
     private static final String DATA_FILE = DATA_DIRECTORY + "/user_data.json";
 
     // Gson instance for JSON serialization
@@ -38,7 +39,7 @@ public class DataManager {
             .registerTypeAdapter(new TypeToken<ObservableList<Trip>>(){}.getType(), new PropertyAdapters.TripListAdapter())
             .registerTypeAdapter(new TypeToken<ObservableList<Memory>>(){}.getType(), new PropertyAdapters.MemoryListAdapter())
             .registerTypeAdapter(LocalDate.class, new PropertyAdapters.LocalDateAdapter())
-            .registerTypeAdapter(Memory.class, new PropertyAdapters.MemoryAdapter())  // ← ADD THIS
+            .registerTypeAdapter(Memory.class, new PropertyAdapters.MemoryAdapter())
             .create();
 
     /**
@@ -60,10 +61,9 @@ public class DataManager {
                 System.out.println("Created data directory: " + DATA_DIRECTORY);
             }
 
-            // Convert user to JSON
             String json = gson.toJson(user);
 
-            // Write to file
+            // write to file
             try (FileWriter writer = new FileWriter(DATA_FILE)) {
                 writer.write(json);
             }
@@ -108,27 +108,6 @@ public class DataManager {
      */
     public static boolean hasSavedData() {
         return new File(DATA_FILE).exists();
-    }
-
-    /**
-     * Delete saved user data (for testing or reset)
-     * @return true if successful, false if failed
-     */
-    public static boolean deleteSavedData() {
-        File file = new File(DATA_FILE);
-
-        if (!file.exists()) {
-            System.out.println("No data file to delete");
-            return true;
-        }
-
-        boolean deleted = file.delete();
-        if (deleted) {
-            System.out.println("✓ Saved data deleted successfully");
-        } else {
-            System.err.println("✗ Failed to delete saved data");
-        }
-        return deleted;
     }
 
     /**
