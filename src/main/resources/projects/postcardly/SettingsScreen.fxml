@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="700" prefWidth="900" style="-fx-background-color: #f6f2ee;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.postcardly.controller.SettingsController">
+<BorderPane prefHeight="700" prefWidth="800" style="-fx-background-color: #f6f2ee;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.postcardly.controller.SettingsController">
 
     <!-- Top Bar -->
     <top>

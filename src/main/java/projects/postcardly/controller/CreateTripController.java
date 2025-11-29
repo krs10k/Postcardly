@@ -56,8 +56,7 @@ public class CreateTripController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Trip Cover Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.mp4"));
 
         Stage stage = (Stage) selectImageButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);

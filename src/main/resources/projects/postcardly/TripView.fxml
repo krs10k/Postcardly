@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="projects.postcardly.controller.TripViewController"
-            prefHeight="800" prefWidth="1000"
+            prefHeight="700" prefWidth="800"
             style="-fx-background-color: #f6f2ee;">
 
     <!-- Top: Trip Header -->
@@ -74,6 +74,43 @@
                             <!-- Image with Navigation -->
                             <StackPane prefWidth="580" prefHeight="380">
 
+                                <!-- Text Entry Display (Journal Note Style) -->
+                                <StackPane fx:id="textEntryPane" visible="false"
+                                           style="-fx-background-color: #fffef7; -fx-background-radius: 10; -fx-border-color: #d4c5a9; -fx-border-width: 2; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 3);"
+                                           prefWidth="580" prefHeight="380">
+                                    <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 30;">
+
+                                        <!-- Notebook lines effect (decorative) -->
+                                        <HBox style="-fx-border-color: transparent transparent #e8d5b5 transparent; -fx-border-width: 0 0 1 0;"/>
+
+                                        <!-- Journal Entry Content -->
+                                        <ScrollPane fitToWidth="true" fitToHeight="true"
+                                                    style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent;"
+                                                    hbarPolicy="NEVER">
+                                            <VBox spacing="10">
+                                                <Label fx:id="textEntryTitleLabel" text="Entry Title"
+                                                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #3a3a3a; -fx-font-family: 'Georgia', serif;"/>
+
+                                                <Label fx:id="textEntryDateLabel" text="Date"
+                                                       style="-fx-font-size: 12px; -fx-text-fill: #8b7355; -fx-font-style: italic;"/>
+
+                                                <TextArea fx:id="textEntryContentLabel" text="Journal content goes here..."
+                                                          wrapText="true"
+                                                          editable="false"
+                                                          prefRowCount="12"
+                                                          style="-fx-font-size: 15px; -fx-text-fill: #2a2a2a; -fx-font-family: 'Georgia', serif; -fx-control-inner-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-color: transparent;"/>
+                                                <Region VBox.vgrow="ALWAYS"/>
+
+                                                <HBox alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+                                                    <Label fx:id="textEntryMoodLabel" text="☺ mood"
+                                                           style="-fx-font-size: 13px; -fx-text-fill: #8b7355; -fx-font-style: italic;"/>
+                                                </HBox>
+                                            </VBox>
+                                        </ScrollPane>
+                                    </VBox>
+                                </StackPane>
+
+
                                 <!-- Gray background that surrounds the image -->
                                 <VBox alignment="CENTER"
                                       style="-fx-background-color: #e8e8e8; -fx-background-radius: 10;"
@@ -113,6 +150,7 @@
                                 </Button>
                             </StackPane>
 
+
                             <!-- Memory Details -->
                             <VBox alignment="CENTER" spacing="6" style="-fx-padding: 15;">
                                 <Label fx:id="memoryTitleLabel" text="Memory Title"
@@ -127,6 +165,7 @@
                             </VBox>
                         </VBox>
                     </StackPane>
+
 
                     <!-- Memory Counter -->
                     <Label fx:id="memoryCounterLabel" text="1 / 1"
