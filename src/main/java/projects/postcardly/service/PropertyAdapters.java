@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.format.DateTimeFormatter;
 import projects.postcardly.model.Memory;
 import projects.postcardly.model.PictureMemory;
 import projects.postcardly.model.TextEntryMemory;
@@ -73,7 +72,7 @@ public class PropertyAdapters {
         }
     }
 
-    // Adapter for ObjectProperty that handles LocalDate properly
+    // Adapter for ObjectProperty
     public static class ObjectPropertyAdapter implements JsonSerializer<ObjectProperty<?>>, JsonDeserializer<ObjectProperty<?>> {
         @Override
         public JsonElement serialize(ObjectProperty<?> src, Type typeOfSrc, JsonSerializationContext context) {
@@ -105,7 +104,7 @@ public class PropertyAdapters {
         }
     }
 
-    // Adapter for TripList<Trip>
+    // TripList<Trip>
     public static class TripListAdapter implements JsonSerializer<ObservableList<Trip>>, JsonDeserializer<ObservableList<Trip>> {
         @Override
         public JsonElement serialize(ObservableList<Trip> src, Type typeOfSrc, JsonSerializationContext context) {
@@ -125,7 +124,7 @@ public class PropertyAdapters {
         }
     }
 
-    // Adapter for ObservableList<Memory>
+    // ObservableList<Memory>
     public static class MemoryListAdapter implements JsonSerializer<ObservableList<Memory>>, JsonDeserializer<ObservableList<Memory>> {
         @Override
         public JsonElement serialize(ObservableList<Memory> src, Type typeOfSrc, JsonSerializationContext context) {
@@ -159,7 +158,7 @@ public class PropertyAdapters {
         }
     }
 
-    // Adapter for LocalDate
+    // LocalDate
     public static class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
@@ -174,7 +173,6 @@ public class PropertyAdapters {
         }
     }
 
-    // Simple adapter for Memory polymorphism
     public static class MemoryAdapter implements JsonSerializer<Memory>, JsonDeserializer<Memory> {
 
         @Override

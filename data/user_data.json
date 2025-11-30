@@ -1,0 +1,13 @@
+{
+  "username": "testuser",
+  "email": "test@email.com",
+  "dateCreated": "2025-11-20",
+  "lastLogin": "2025-11-20",
+  "firstName": "Test",
+  "lastName": "User",
+  "bio": "Testing the app!",
+  "trips": [],
+  "theme": "default",
+  "defaultView": "default",
+  "autoSave": false
+}

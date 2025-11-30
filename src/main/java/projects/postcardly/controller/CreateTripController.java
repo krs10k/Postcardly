@@ -26,8 +26,6 @@ public class CreateTripController {
     @FXML private Label imageFileLabel;
     @FXML private Label errorLabel;
     @FXML private Button backButton;
-    @FXML private Button cancelButton;
-    @FXML private Button createButton;
 
     private User currentUser;
     private File selectedImageFile;
@@ -58,8 +56,7 @@ public class CreateTripController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Trip Cover Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.mp4"));
 
         Stage stage = (Stage) selectImageButton.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
@@ -202,7 +199,7 @@ public class CreateTripController {
 
     @FXML
     private void handleBack() {
-        handleCancel(); // Use same logic as cancel
+        handleCancel(); // same logic as cancel
     }
 
     private void navigateBack() {
@@ -239,7 +236,7 @@ public class CreateTripController {
         }
     }
 
-    // Method to receive user from previous screen
+    // receives user from previous screen
     public void setUser(User user) {
         this.currentUser = user;
     }

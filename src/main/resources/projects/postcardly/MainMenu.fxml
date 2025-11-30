@@ -6,15 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="20"
-      style="-fx-background-color: #f6f2ee;"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="projects.postcardly.controller.MainMenuController">
+<VBox alignment="CENTER" prefHeight="700" prefWidth="800" spacing="20" style="-fx-background-color: #f6f2ee;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.postcardly.controller.MainMenuController">
 
-    <ImageView fitHeight="218.0" fitWidth="300.0" layoutX="-36.0" pickOnBounds="true" preserveRatio="true"
-               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-36.0"
-               AnchorPane.rightAnchor="-36.471923828125" AnchorPane.topAnchor="0.0">
+    <ImageView fitHeight="218.0" fitWidth="300.0" layoutX="-36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-36.0" AnchorPane.rightAnchor="-36.471923828125" AnchorPane.topAnchor="0.0">
         <image>
             <Image url="@../postcardly/images/Postcardly_logo_short.png" />
         </image>
@@ -25,25 +19,18 @@
             <Insets top="30" />
         </VBox.margin>
 
-        <Button fx:id="viewTripsButton" onAction="#handleViewTrips"
-                prefHeight="50" prefWidth="250"
-                style="-fx-background-color: #fa4444; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 8; -fx-cursor: hand;"
-                text="View Trips" />
+        <Button fx:id="viewTripsButton" onAction="#handleViewTrips" prefHeight="70" prefWidth="240" style="-fx-background-color: #fa4444; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 8; -fx-cursor: hand;" text="View Trips" />
 
-        <Button fx:id="createTripButton" onAction="#handleCreateTrip"
-                prefHeight="50" prefWidth="250"
-                style="-fx-background-color: #fa4444; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 8; -fx-cursor: hand;"
-                text="Create New Trip" />
+        <Button fx:id="createTripButton" onAction="#handleCreateTrip" prefHeight="70" prefWidth="240" style="-fx-background-color: #fa4444; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 8; -fx-cursor: hand;" text="Create New Trip" />
     </VBox>
 
     <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-        <Button onAction="#handleSettings" prefHeight="43.0" prefWidth="125.0"
-                style="-fx-background-color: #95A5A6; -fx-text-fill: white; -fx-font-size: 30; -fx-background-radius: 8; -fx-cursor: hand;"
-                text="⚙️" textAlignment="CENTER" />
 
-        <Button onAction="#handleExit" prefHeight="57.0" prefWidth="125.0"
-                style="-fx-background-color: #ff7e71; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 8; -fx-cursor: hand;"
-                text="❌">
+        <Button fx:id="settingsButton" onAction="#handleSettings" prefHeight="57.0" prefWidth="110.0" style="-fx-background-color: #95A5A6; -fx-text-fill: white; -fx-font-size: 30; -fx-background-radius: 8; -fx-cursor: hand;" text="⚙️" textAlignment="CENTER" />
+
+        <Region prefHeight="100.0" prefWidth="20.0" />
+
+        <Button onAction="#handleExit" prefHeight="57.0" prefWidth="110.0" style="-fx-background-color: #ff7e71; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 8; -fx-cursor: hand;" text="❌">
             <font><Font size="12.0" /></font>
         </Button>
     </HBox>
