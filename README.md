@@ -1,56 +1,73 @@
-# 📬 Postcardly — CS3443 Final Project
-Karsten T Karlsgodt ,Samuel C Garcia, Sean David Lewis, Charles C Lazcano
+📬 Postcardly — CS3443 Final Project
 
-Postcardly is a JavaFX desktop application that allows users to create, save, and view digital postcards for recorded trips. The project follows the **Model-View-Controller (MVC)** pattern and uses **file I/O** to persist trip data.
+Contributors:
+Karsten T Karlsgodt • Samuel C Garcia • Sean David Lewis • Charles C Lazcano
 
-This application is the final project submission for **UTSA CS3443 — Application Programming**.
+Postcardly is a JavaFX desktop application that allows users to create, save, and view digital postcards for recorded trips. The project follows the Model-View-Controller (MVC) pattern and uses file I/O to persist trip data.
 
----
+This application is the final project submission for UTSA CS3443 — Application Programming.
 
-## ✨ Features
+✨ Features
 
-- Clean JavaFX UI using FXML layouts
-- Users can create a trip postcard and save it locally
-- View previously saved trips
-- Organized navigation between scenes (Splash → Menu → Views → etc.)
-- Local data & resources packaged inside the application
-- Follows strict MVC architecture with separate Service layer for data I/O
+Clean JavaFX UI using FXML layouts
 
----
+Users can create a trip postcard and save it locally
 
-## 🧩 Architecture — MVC
+View previously saved trips
 
-| Layer | Folder | Responsibility |
-|------|--------|----------------|
-| Model | `/src/main/java/projects/postcardly/model` | Represents Trip data objects |
-| View | `/src/main/resources/projects/postcardly/*.fxml` | UI screens and layouts |
-| Controller | `/src/main/java/projects/postcardly/controller` | Handles user interaction / scene switching |
-| Service | `/src/main/java/projects/postcardly/service` | File I/O + logic not tied to UI |
+Navigation between multiple scenes (Splash → Menu → Views → etc.)
 
----
+Local resources packaged inside the application
 
-## 📂 Project Structure
+Strict MVC separation with a Service layer for file I/O
+
+🧩 Architecture — MVC
+Layer	Folder Path	Purpose
+Model	src/main/java/projects/postcardly/model	Trip data objects
+View	src/main/resources/projects/postcardly/*.fxml	UI screens
+Controller	src/main/java/projects/postcardly/controller	User interaction & scene switching
+Service	src/main/java/projects/postcardly/service	File I/O and helper logic
+📂 Project Structure
 Postcardly/
-├── src/main/java/projects/postcardly/
-│ ├── controller/
-│ ├── model/
-│ ├── service/
-│ ├── Launcher.java # Main execution entry point
-│ └── PostcardlyApp.java # JavaFX Application class
-│
-├── src/main/resources/projects/postcardly/
-│ ├── data/ # User trip data files (read/write)
-│ ├── images/ # UI assets & postcard graphics
-│ ├── CreateTrip.fxml
-│ ├── MainMenu.fxml
-│ ├── SplashScreen.fxml
-│ ├── TripsMenu.fxml
-│ └── TripView.fxml
-│
-├── Postcardly_UML.drawio # UML Diagram (MVC)
-├── pom.xml # Maven config
-└── README.md
+ ├── src/main/java/projects/postcardly/
+ │   ├── controller/
+ │   ├── model/
+ │   ├── service/
+ │   ├── Launcher.java          # Main execution entry point
+ │   └── PostcardlyApp.java     # JavaFX Application class
+ │
+ ├── src/main/resources/projects/postcardly/
+ │   ├── data/                  # Saved trip data
+ │   ├── images/                # UI graphics + postcard visuals
+ │   ├── CreateTrip.fxml
+ │   ├── MainMenu.fxml
+ │   ├── SplashScreen.fxml
+ │   ├── TripsMenu.fxml
+ │   └── TripView.fxml
+ │
+ ├── Postcardly_UML.drawio      # UML diagram (MVC)
+ ├── pom.xml                    # Maven configuration
+ └── README.md
 
-## 🛠 Java SDK Requirement (Very Important)
+🚀 How to Run Postcardly (IntelliJ)
 
-This project must run using:
+After cloning or downloading the repository:
+
+1️⃣ Open the project in IntelliJ IDEA
+2️⃣ Set the Project SDK to:
+👉 Amazon Corretto 24.0.2 (or current project SDK used in this project)
+3️⃣ In IntelliJ Project View open:
+
+src/main/java/projects/postcardly/Launcher.java
+
+
+4️⃣ Right-click → Run 'Launcher'
+5️⃣ The app will launch starting at the Splash Screen
+
+🐞 Known Issues
+
+Must be run using the correct SDK (Amazon Corretto 24.0.2)
+
+JavaFX may fail to load if SDK is set to a different Java version
+
+Screen scaling may vary depending on monitor resolution
